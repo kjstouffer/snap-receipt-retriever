@@ -1,3 +1,6 @@
+var user = process.env.SNAP_FITNESS_USERNAME;
+var password = process.env.SNAP_FITNESS_PASSWORD;
+
 function delay(time) {
     return new Promise(function(resolve) {
         setTimeout(resolve, time);
@@ -26,15 +29,15 @@ const puppeteer = require('puppeteer');
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    page.setViewport({width: 1000, height: 600, deviceScaleFactor: 1});
+    page.setViewport({width: 1000, height: 600, deviceScaleFactor: 2});
     await page.goto('https://member.snapfitness.com/login');
     console.log("got to page");
     await page.click('#root > div > div > div:nth-child(2) > div > div > form > fieldset > div:nth-child(3) > div > input');
     console.log("clicked email");
-    await page.keyboard.type("snap_username");
+    await page.keyboard.type(user);
     console.log("entered email");
     await page.click('#root > div > div > div:nth-child(2) > div > div > form > fieldset > div:nth-child(4) > div > input');
-    await page.keyboard.type('snap_password');
+    await page.keyboard.type(password);
     console.log("entered password");
     console.log("logging in");
     await page.click('#root > div > div > div:nth-child(2) > div > div > form > fieldset > div.form-actions.form-actions-remember-me > button');
